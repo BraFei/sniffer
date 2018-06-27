@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+	<div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+				<h2>确定要删除这条记录么？</h2>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{% block blog_list_title %}设备{{ sniffer_details.id }}资料详情{% endblock %}</div>
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td>设备id</td>
+									<td>{{ sniffer_details.id }}</a></td>
+								</tr>
+								<tr>
+									<td>设备名称</td>
+									<td>{{ sniffer_details.equip_name }}</td>
+								</tr>
+								<tr>
+									<td>设备标识</td>
+									<td>{{ sniffer_details.mac }}</td>
+								</tr>
+								<tr>
+									<td>位置信息</td>
+									<td>{{ sniffer_details.address }}</td>
+								</tr>
+								<tr>
+									<td>描述</td>
+									<td>{{ sniffer_details.description }}</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+						<input name="quit" type="button" class="btn" onclick="location.href='javascript:history.go(-1);'" value="取消" />
+						<input type="submit" name="yes" value="确定" class="btn btn-primary pull-left"
+							   onclick="location.href='{% url 'equip_detail_delete_operate'  sniffer_details.id %}'">
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

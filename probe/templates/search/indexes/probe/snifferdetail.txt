@@ -1,0 +1,2 @@
+{{ object.mac }}
+{{ object.time }}

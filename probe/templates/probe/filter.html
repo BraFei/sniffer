@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}筛选{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/probe/filter.css' %}">{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+			<div class="panel panel-default">
+				<div style="text-align:center">
+					<h3>
+						请输入您想要的条件
+					</h3>
+					<p id="message_time_req">{{ message_req }}</p>
+					<p>{{ message }}</p>
+						{% if error_1 %}
+							<p>请输入数值范围值(像：1.0，2.0之类的)</p>
+						{% endif %}
+						{% if error_2 %}
+							<p>数值类型的范围值给反了</p>
+						{% endif %}
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ content.as_p }}
+						<div class="submit" >
+							<p><input type="submit" class="btn btn-primary btn-sm" value="筛选"></p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+	嗅探资料详情
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+			<div class="panel panel-default">
+				<div class="panel-heading">{% block blog_list_title %}数据列表{% endblock %}</div>
+				<!-- Single button -->
+				<div class="paginator" style="text-align:center">
+				<ul class="pagination">
+					{# 上一页 #}
+					<li>
+						{% if page_of_sniffer_details.has_previous %}
+							<a href="?page={{ page_of_sniffer_details.previous_page_number }}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						{% else %}
+							<span aria-hidden="true">&laquo;</span>
+						{% endif %}
+					</li>
+					{# 全部页码 #}
+					{% for page_num in page_range %}
+						{% if page_num == page_of_sniffer_details.number %}
+							<li class="active"><span>{{ page_num }}</span></li>
+						{% else %}
+							{% if page_num == '...' %}
+								<li><span>{{ page_num }}</span></li>
+							{% else %}
+								<li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{# 下一页 #}
+					<li>
+						{% if page_of_sniffer_details.has_next %}
+							<a href="?page={{ page_of_sniffer_details.next_page_number }}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						{% else %}
+							<span aria-hidden="true">&raquo;</span>
+						{% endif %}
+					</li>
+				</ul>
+				<p>
+					记录数目：{{ page_of_sniffer_details.paginator.count }}
+				</p>
+			</div>
+				<div class="panel-body">
+					<!-- Default panel contents -->
+					<!-- Table -->
+					<table class="table table-bordered">
+							<tr>
+								<td></td>
+								<td>嗅探针设备号</td>
+								<td>设备mac地址</td>
+								<td>设备信号强度</td>
+								<td>距离</td>
+								<td>是否连接WIFI</td>
+								<td>WIFI地址(mac)</td>
+								<td>手机是否睡眠</td>
+								<td>常联WIFI</td>
+								<td>时  间</td>
+							</tr>
+							{% for sniffer_detail in sniffer_details %}
+							<tr>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="{% url 'sniffer_detail' sniffer_detail.row_id %}">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</a>
+										<a href="{% url 'sniffer_detail_delete' sniffer_detail.row_id %}">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</a>
+									</div>
+								</td>
+								<td><a href="{% url 'master_id_filter' sniffer_detail.master_id %}">{{ sniffer_detail.master_id }}</a></td>
+								<td><a href="{% url 'mac_filter' sniffer_detail.mac %}">{{ sniffer_detail.mac }}</a></td>
+								<td><a href="{% url 'rssi_filter' sniffer_detail.row_id %}"> {{ sniffer_detail.rssi }}</a></td>
+								<td>{{ sniffer_detail.range }}</td>
+								<td>{{ sniffer_detail.tc }}</td>
+								<td>{{ sniffer_detail.tmc }}</td>
+								<td>{{ sniffer_detail.ds }}</td>
+								<td>{{ sniffer_detail.essid0 }}</td>
+								<td><a href="{% url 'time_single_filter' sniffer_detail.time.year sniffer_detail.time.month sniffer_detail.time.day %}">
+									{{ sniffer_detail.time|date:"Y-m-d H:i:s" }}</a></td>
+							</tr>
+							{% empty %}
+							<div class="blog">
+								<h3 style="text-align: center">&---数据还在收集的路上，敬请期待---&</h3>
+							</div>
+							{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

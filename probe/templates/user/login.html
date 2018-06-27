@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+	<title>sniffer登录</title>
+{% endblock %}
+{% block content %}
+	<h1>登录</h1>
+	<form action="." method="post" enctype="multipart/form-data">
+	{{ form.as_p }}
+	{% csrf_token %}
+	</form>
+
+{% endblock %}

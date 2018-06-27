@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+	<div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{% block blog_list_title %}探针{{ sniffer_details.row_id }}资料详情{% endblock %}</div>
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td>嗅探针设备号</td>
+									<td>{{ sniffer_details.master_id }}</td>
+								</tr>
+								<tr>
+									<td>时  间</td>
+									<td>{{ sniffer_details.time|date:"Y-m-d H:i:s" }}</td>
+								</tr>
+								<tr>
+									<td>设备mac地址</td>
+									<td>{{ sniffer_details.mac }}</td>
+								</tr>
+								<tr>
+									<td>设备信号强度</td>
+									<td>{{ sniffer_details.rssi }}</td>
+								</tr>
+								<tr>
+									<td>距离</td>
+									<td>{{ sniffer_details.range }}</td>
+								</tr>
+								<tr>
+									<td>是否连接WIFI</td>
+									<td>{{ sniffer_details.tc }}</td>
+								</tr>
+								<tr>
+									<td>WIFI地址(mac)</td>
+									<td>{{ sniffer_details.tmc }}</td>
+								</tr>
+								<tr>
+									<td>手机是否睡眠</td>
+									<td>{{ sniffer_details.ds }}</td>
+								</tr>
+								<tr>
+									<td>常联WIFI</td>
+									<td>{{ sniffer_details.essid0 }}</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

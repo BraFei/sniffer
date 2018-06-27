@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+	<div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{% block blog_list_title %}探针基本信息详情{% endblock %}</div>
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td>id</td>
+									<td>{{ equip_detail.id }}</td>
+								</tr>
+								<tr>
+									<td>设备名字</td>
+									<td>{{ equip_detail.equip_name }}</td>
+								</tr>
+								<tr>
+									<td>设备mac地址</td>
+									<td>{{ equip_detail.mac }}</td>
+								</tr>
+								<tr>
+									<td>设备位置</td>
+									<td>{{ equip_detail.address }}</td>
+								</tr>
+								<tr>
+									<td>描述</td>
+									<td>{{ equip_detail.description }}</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

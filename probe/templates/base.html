@@ -1,0 +1,214 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+<head>
+	<meta charset="utf-8">
+ 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
+	<link  rel="stylesheet" href="{% static 'css/base.css'%}">
+    <script type="text/javascript" src="{% static 'JQ/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+	<title>{% block title %}首页{% endblock %}</title>
+	{% block css %}{% endblock %}
+</head>
+
+<body>
+<nav class="navbar navbar-inverse" >
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{% url 'sniffer_list' %}">WiFi探针数据管理系统</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:white;">
+				<span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
+				基础数据 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{% url 'sniffer_equip_list' %}">探针设备</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="{% url 'sniffer_equip_add' %}">添加设备</a></li>
+						{# <li role="separator" class="divider"></li> #}
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:white;">
+					<span class="glyphicon glyphicon glyphicon-cloud" aria-hidden="true"></span>
+					探针数据 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{% url 'sniffer_list' %}">最新数据</a></li>
+					{# <li role="separator" class="divider"></li> #}
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:white;">
+					<span class="glyphicon glyphicon glyphicon-cloud" aria-hidden="true"></span>
+					筛选数据 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{% url 'equip_range' %}">按测定范围</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="{% url 'time_filter' %}">按时间查找</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:white;">
+					<span class="glyphicon glyphicon glyphicon-cloud" aria-hidden="true"></span>
+					弹框数据 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+							<p data-toggle="modal" data-target="#equip-name">探针名称</p>
+							<li role="separator" class="divider"></li>
+							<p data-toggle="modal" data-target="#mac">按照设备mac</p>
+							<li role="separator" class="divider"></li>
+							<p data-toggle="modal" data-target="#master-id">按探针设备号</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{% if request.user.is_authenticated %}
+
+					<li><a href="#" style="color:white;">你好：{{ request.user }}  </a> </li>
+					<li><a href="{% url 'logout' %}" style="color:white;">退出</a></li>
+					{% else %}
+					<li>
+					<a href="{% url 'login' %}" style="color:white;">登录</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+{% block content %}
+{% endblock %}
+{% block ajax_js %}
+{% endblock %}
+
+{##########################################################################################################}
+<!-- mac模态框（Modal） -->
+<div class="modal fade" id="mac" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">请输入您需要的筛选条件</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'mac' %}" method="GET">
+					{% csrf_token %}
+					<input type="text" class="form-control" name="mac">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<input type="submit" name="yes" value="确定" class="btn btn-primary pull-right">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+
+{##########################################################################################################}
+<!-- master_id模态框（Modal） -->
+<div class="modal fade" id="master-id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">请输入您需要的设备号筛选条件</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'master_id' %}" method="GET">
+					{% csrf_token %}
+					<input type="text" class="form-control" name="master_id">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<input type="submit" name="yes" value="确定" class="btn btn-primary pull-right">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+
+{##########################################################################################################}
+<!-- equip_name模态框（Modal） -->
+<div class="modal fade" id="equip-name" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">请输入您需要的探针名称筛选条件</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'equip_name' %}" method="GET">
+					{% csrf_token %}
+					<input type="text" class="form-control" name="equip-name">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<input type="submit" name="yes" value="确定" class="btn btn-primary pull-right">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+{##########################################################################################################}
+<!-- master_id模态框（Modal） -->
+<div class="modal fade" id="equip-range" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">请输入您需要的探针名称筛选条件</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'equip_range' %}" method="GET">
+					{% csrf_token %}
+					<p>友情提示：请输入像：1.0， 3.00， 4,5之类的带有小数点的数值</p>
+					<p>最小距离</p>
+					<input type="text" class="form-control" name="min-range" placeholder="最小距离">
+					<p>最大距离</p>
+					<input type="text" class="form-control" name="max-range" placeholder="最大距离">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<input type="submit" name="yes" value="确定" class="btn btn-primary pull-right">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+
+{#############################################################}
+<div class="row img-rounded">
+    <hr>
+    <small>
+        <div style="text-align: center;">
+            Copyright © 2018 - 2019 powered by 赚他两百万科技有限公司.
+        </div>
+    </small>
+</div>
+</body>
+</html>

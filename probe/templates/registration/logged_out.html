@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}退出{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="jumbotron">
+				<h2>
+					退出成功
+				</h2>
+				<p>
+					你可以再次
+				</p>
+				<p>
+					 <a class="btn btn-primary btn-large" href="{% url 'login' %}">登录</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

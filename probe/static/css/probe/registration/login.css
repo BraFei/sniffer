@@ -1,0 +1,54 @@
+
+
+body {
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif;
+    text-align:center;
+}
+
+p {
+    line-height: 1.8;
+}
+
+
+/* forms */
+form {
+    overflow:auto;
+    text-align:center;
+}
+
+form p {
+    width:100%;
+    overflow:auto;
+}
+
+label {
+    float:left;
+    clear:both;
+    color:#333;
+    margin-bottom:4px;
+}
+input, text {
+    clear:both;
+    float:left;
+    margin:0 0 10px;
+    background:#efefef;
+    border:1px;
+    padding:6px 10px;
+    font-size:14px;
+}
+input[type=submit], a.button {
+    font-weight:bold;
+    background:#434f63;
+    color:#fff;
+    padding: 5px 69px;
+    font-size:14px;
+    text-transform:uppercase;
+}
+
+
+.login-form {
+    margin-left:40%;
+}
+

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}登录{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/probe/registration/login.css' %}">{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row" >
+		<div class="col-xs-12 col-sm-8 col-md-9 col-lg-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">{% block blog_list_title %}WIFI探针数据系统 登录{% endblock %}</div>
+				{% if form.errors %}
+					<p>用户名和密码不匹</p>
+				{% endif %}
+				<div class="login-form" style="text-align:center; margin-top:10px;">
+				<form action="{% url 'login' %}" method="post">
+					{{ form.as_p }}
+					{% csrf_token %}
+					<input type="hidden" name="next" value="{{ next }}" />
+					 <p><input type="submit" class="btn btn-primary btn-sm" value="登录"></p>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

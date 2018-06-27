@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+			<div class="panel panel-default">
+				<div style="text-align:center">
+					<h3>
+						请输入您想要的条件
+					</h3>
+
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="submit" style="float:right">
+						<input type="submit" value="提交" />
+					</div>
+					{{ filter_form.as_p }}
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

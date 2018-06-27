@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+	嗅探设备详情
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+			<div class="panel panel-default">
+				<div class="panel-heading">{% block blog_list_title %}数据列表{% endblock %}</div>
+				<!-- Single button -->
+				<div class="panel-body">
+					<!-- Default panel contents -->
+					<!-- Table -->
+					<table class="table table-bordered">
+							<tr>
+								<td></td>
+								<td>设备id</td>
+								<td>设备名称</td>
+								<td>设备标识</td>
+								<td>位置信息</td>
+								<td>描述</td>
+							</tr>
+							{% for sniffer_detail in sniffer_equip_list %}
+							<tr>
+								<td>
+									<div class="btn-group btn-group-xs">
+										<a href="{% url 'sniffer_equip_detail' sniffer_detail.id %}">
+											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										</a>
+										<a href="{% url 'sniffer_equip_delete' sniffer_detail.id %}">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</a>
+									</div>
+								</td>
+								<td>{{ sniffer_detail.id }}</td>
+								<td>{{ sniffer_detail.equip_name }}</td>
+								<td>{{ sniffer_detail.mac }}</td>
+								<td>{{ sniffer_detail.address }}</td>
+								<td>{{ sniffer_detail.description }}</td>
+							</tr>
+							{% empty %}
+							<div class="blog">
+								<h3 style="text-align: center">&---数据还在收集的路上，敬请期待---&</h3>
+							</div>
+							{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
